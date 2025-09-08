@@ -7,6 +7,8 @@ class MasterControl
 {
     public:
     explicit MasterControl(sf::RenderWindow &window);
+    void startAndExitGame(sf::RenderWindow &window);
+    void showDialog(sf::RenderWindow &window);
     void updateGameStatus(sf::RenderWindow &window, float deltaTime);
     void draw(sf::RenderWindow& window);
 
