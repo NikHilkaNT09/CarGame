@@ -6,13 +6,21 @@
 #include <SFML/OpenGL.hpp>
 #include <SFML/Window.hpp>
 #include <GL/glu.h>  
+#include <iterator>
 // #include "masterCar.h"
-#include "masterCar.cpp"
-#include "road.cpp"
+// #include "masterCar.cpp"
+// #include "road.cpp"
+#include "masterControl.cpp"
 using namespace std;
 using namespace sf;
 
 bool m_isGameOver = false;
+
+bool checkGameOver(){
+
+    // if()
+    return true;
+}
 
 int main(){
     
@@ -23,8 +31,9 @@ int main(){
     sf::Color backgroundColor(100, 150, 255); // Sky blue
 
     // Create instances of the Car and Road classes
-    MasterCar myCar(sf::Vector2f(window.getSize().x, window.getSize().y));
-    Road myRoad(sf::Vector2f(window.getSize().x, window.getSize().y));
+    // MasterCar myCar(sf::Vector2f(window.getSize().x, window.getSize().y));
+    // Road myRoad(sf::Vector2f(window.getSize().x, window.getSize().y));
+    MasterControl *cont = new MasterControl(window);
 
     // --- Game Clock for Time-Based Movement ---
     sf::Clock clock;
@@ -43,22 +52,34 @@ int main(){
                 window.close();
         }
 
+        cont->updateGameStatus(window, deltaTime);
         // --- Update ---
-        myCar.update(deltaTime, window);
-        myRoad.update(deltaTime, sf::Vector2f(window.getSize().x, window.getSize().y));
+        // myCar.update(deltaTime, window);
+        // myRoad.update(deltaTime, sf::Vector2f(window.getSize().x, window.getSize().y));
+        // for(auto a:myRoad.getObsPostion()){
+        //     std::cout << "$$ "<< a.x << " % " << myCar.getPosition().x << std::endl;
 
-        for(auto a:myRoad.getObsPostion()){
-            std::cout << " ++++++++++++++  " << a.x << " = " << myCar.getPosition().x<<  std::endl;
-            if(std::abs(a.x- myCar.getPosition().x) <= 50 && std::abs(a.y- myCar.getPosition().y) <=50){
-                m_isGameOver = true;
-            }
-        }
+        //     if(500 - a.y <=50){
+        //     if(myCar.getPosition().x > a.x && myCar.getPosition().x - a.x < 8){
+        //         m_isGameOver = true;
+        //     }
+        //     if(std::abs(a.x- myCar.getPosition().x) <= 90  /*&& std::abs(a.y- myCar.getPosition().y) <=70*/){
+        //         // std::cout << "  " << a.x << " = " << myCar.getPosition().x << " : "<< a.x- myCar.getPosition().x << "  //  "<< a.y << " = "<< myCar.getPosition().y << " : " << a.y- myCar.getPosition().y << std::endl;
+            
+        //         m_isGameOver = true;
+        //     }
+        //     }
+
+
+
+        // }
         // --- Render ---
-        if(!m_isGameOver)
+        if(!cont->m_isGameOver)
         {
             window.clear(backgroundColor);
-            myRoad.draw(window);
-            myCar.draw(window);
+            cont->draw(window);
+            // myRoad.draw(window);
+            // myCar.draw(window);
             window.display();
         }
 
