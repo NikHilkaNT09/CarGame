@@ -15,10 +15,11 @@ private:
     bool m_isLeftBlocked = false;
     bool m_isRightBlocked = false;
 
-    std::string m_sTag = "MCar";
+    std::string m_sTag = "MCar: ";
 
     public:
     void update(float deltaTime, sf::RenderWindow& window);
     void draw(sf::RenderWindow& window);
     bool limitHorizontalMovement(sf::RenderWindow& window);
+    sf::Vector2f getPosition() const;
 };

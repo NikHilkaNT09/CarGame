@@ -10,6 +10,7 @@
 #include <SFML/System/Vector2.hpp>
 #include <iostream>
 #include <iterator>
+#include <ostream>
 
 namespace {
     const sf::Color CAR_COLOR(255, 0, 0);
@@ -102,7 +103,7 @@ bool MasterCar::limitHorizontalMovement(sf::RenderWindow& window){
         
         // Print the formatted time to the console 
         // std::cout << "Current Time: " << buffer << "\t" <<x++ <<"\t" << m_body->getPosition().x <<" ~" << window.getSize().x <<std::endl;
-        std::cout << m_sTag << m_body->getPosition().x << std::endl; 
+        // std::cout << m_sTag << m_body->getPosition().x << std::endl; 
 
 
         (m_body->getPosition().x <= 248) ? m_isLeftBlocked = true : m_isLeftBlocked = false;
@@ -111,4 +112,8 @@ bool MasterCar::limitHorizontalMovement(sf::RenderWindow& window){
     return false;
 }
 
- 
+ sf::Vector2f MasterCar::getPosition() const
+ {
+    // std::cout <<  ")))))))" << m_body->getPosition().x << std::endl;
+    return m_body->getPosition();
+ }

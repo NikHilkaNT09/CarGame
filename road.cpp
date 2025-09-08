@@ -1,5 +1,5 @@
 #include "road.h"
-
+#include <SFML/System/Vector2.hpp>
 
     //Constructor
     
@@ -22,24 +22,55 @@ Road::Road(const sf::Vector2f& windowSize) {
         m_roadStripes.push_back(stripe);
     }
 }
-    void Road::update(float deltaTime, const sf::Vector2f& windowSize) {
-        for (auto& stripe : m_roadStripes)
-        {
-            stripe.move(0, m_roadSpeed * deltaTime);
+void Road::update(float deltaTime, const sf::Vector2f& windowSize) {
+    for (auto& stripe : m_roadStripes)
+    {
+        stripe.move(0, m_roadSpeed * deltaTime);
 
-            // Reset the stripe to the top if it goes off-screen
-            if (stripe.getPosition().y > windowSize.y)
-            {
-                stripe.setPosition(stripe.getPosition().x, -stripe.getSize().y - (stripe.getSize().y + 100.0f) * 0.5f);
-            }
+        // Reset the stripe to the top if it goes off-screen
+        if (stripe.getPosition().y > windowSize.y)
+        {
+            stripe.setPosition(stripe.getPosition().x, -stripe.getSize().y - (stripe.getSize().y + 100.0f) * 0.5f);
         }
     }
+
+    for (auto& obstacle : m_obstacles) {
+        obstacle.update(deltaTime, m_roadSpeed);
+    }
+
+    m_obstacles.erase(
+        std::remove_if(m_obstacles.begin(), m_obstacles.end(), [&](const Obstacle& obs) {
+            return obs.getBounds().top > windowSize.y;
+        }),
+        m_obstacles.end()
+    );
+
+    m_obstacleSpawnTimer += deltaTime;
+    if (m_obstacleSpawnTimer > 1.5f) { // Spawns a new obstacle every 1.5 seconds
+        m_obstacles.emplace_back(m_road.getPosition().x, m_road.getSize().x);
+        m_obstacleSpawnTimer = 0.0f;
+    }
+}
 
     // Public method to draw the road and its stripes
-    void Road::draw(sf::RenderWindow& window) {
-        window.draw(m_road);
-        for (const auto& stripe : m_roadStripes)
-        {
-            window.draw(stripe);
-        }
+void Road::draw(sf::RenderWindow& window) {
+    window.draw(m_road);
+    for (const auto& stripe : m_roadStripes)
+    {
+        window.draw(stripe);
     }
+
+    for (auto& obstacle : m_obstacles) {
+        obstacle.draw(window);
+    }
+}
+
+std::vector<sf::Vector2f> Road::getObsPostion()
+{
+    std::vector<sf::Vector2f> data;
+
+    for (auto& obstacle : m_obstacles) {
+        data.push_back(obstacle.getPostion());
+    }
+    return data;
+}

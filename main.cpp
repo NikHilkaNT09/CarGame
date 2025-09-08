@@ -101,7 +101,7 @@ void setupGL(unsigned int width, unsigned int height) {
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 }
-
+bool m_isGameOver = false;
 int main(){
     
     sf::RenderWindow window(sf::VideoMode(800, 600), "Infinite Road 2D Game", sf::Style::Titlebar | sf::Style::Close);
@@ -131,15 +131,30 @@ int main(){
                 window.close();
         }
 
+        // myRoad.obsta
+        // if(){
+
+        // }
+
         // --- Update ---
         myCar.update(deltaTime, window);
         myRoad.update(deltaTime, sf::Vector2f(window.getSize().x, window.getSize().y));
 
+        for(auto a:myRoad.getObsPostion()){
+            std::cout << " ++++++++++++++  " << a.x << " = " << myCar.getPosition().x<<  std::endl;
+            if(std::abs(a.x- myCar.getPosition().x) <= 50 && std::abs(a.y- myCar.getPosition().y) <=50){
+                m_isGameOver = true;
+            }
+        }
         // --- Render ---
-        window.clear(backgroundColor);
-        myRoad.draw(window);
-        myCar.draw(window);
-        window.display();
+        if(!m_isGameOver)
+        {
+            window.clear(backgroundColor);
+            myRoad.draw(window);
+            myCar.draw(window);
+            window.display();
+        }
+
     }
 
     return 1;
