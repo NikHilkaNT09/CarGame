@@ -1,5 +1,6 @@
 #include "iostream"
 #include <SFML/Graphics.hpp>
+#include <string>
 #include <vector>
 
 class MasterCar{
@@ -11,10 +12,13 @@ private:
     sf::CircleShape m_frontWheel[2];
     sf::CircleShape m_backWheel[2];
     float m_speed = 300.0f;
-    std::string flag = "";
+    bool m_isLeftBlocked = false;
+    bool m_isRightBlocked = false;
+
+    std::string m_sTag = "MCar";
 
     public:
     void update(float deltaTime, sf::RenderWindow& window);
     void draw(sf::RenderWindow& window);
-    bool limitHorizontalMovement(sf::RenderWindow& window, std::string deltaTime);
+    bool limitHorizontalMovement(sf::RenderWindow& window);
 };

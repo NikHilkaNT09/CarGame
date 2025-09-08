@@ -54,18 +54,18 @@ MasterCar::MasterCar(const sf::Vector2f& windowSize){
 void MasterCar::update(float deltaTime, sf::RenderWindow& window) {
     float movement = 0.0f;
     
+    limitHorizontalMovement(window);
+    
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
         
-        if(!limitHorizontalMovement(window, flag)){
-            flag = "left";
+        if(!m_isLeftBlocked){
             movement = -m_speed * deltaTime;
         }
        
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
         
-        if(!limitHorizontalMovement(window, flag)){
-            flag = "right";
+        if(!m_isRightBlocked){
             movement = m_speed * deltaTime;
         }
     }
@@ -74,6 +74,8 @@ void MasterCar::update(float deltaTime, sf::RenderWindow& window) {
     m_body->move(movement, 0.0f);
     m_frontWheel[0].move(movement, 0.0f);
     m_backWheel[0].move(movement, 0.0f);
+    m_frontWheel[1].move(movement, 0.0f);
+    m_backWheel[1].move(movement, 0.0f);
 }
 
 void MasterCar::draw(sf::RenderWindow& window) {
@@ -84,7 +86,7 @@ void MasterCar::draw(sf::RenderWindow& window) {
     window.draw(m_backWheel[1]);
 }
 
-bool MasterCar::limitHorizontalMovement(sf::RenderWindow& window, std::string deltaTime){
+bool MasterCar::limitHorizontalMovement(sf::RenderWindow& window){
     static int x = 1;
     // float tm = clock.restart().asSeconds();
     // std::cout << "Entered\t" << tm;
@@ -98,11 +100,13 @@ bool MasterCar::limitHorizontalMovement(sf::RenderWindow& window, std::string de
         // Format the time as a string with only hours, minutes, and seconds
         std::strftime(buffer, sizeof(buffer), "%H:%M:%S:%Z", localTime);
         
-        // Print the formatted time to the console
+        // Print the formatted time to the console 
         // std::cout << "Current Time: " << buffer << "\t" <<x++ <<"\t" << m_body->getPosition().x <<" ~" << window.getSize().x <<std::endl;
-        std::cout << "Flag : " << deltaTime << "   " << flag << std::endl; 
-        if(m_body->getPosition().x >= window.getSize().x - 50 && deltaTime != flag)
-            return true;
+        std::cout << m_sTag << m_body->getPosition().x << std::endl; 
+
+
+        (m_body->getPosition().x <= 248) ? m_isLeftBlocked = true : m_isLeftBlocked = false;
+        (m_body->getPosition().x >= 551.5) ? m_isRightBlocked = true : m_isRightBlocked = false;
 
     return false;
 }
