@@ -51,7 +51,10 @@ MasterCar::MasterCar(const sf::Vector2f& windowSize){
     m_backWheel[1].setOrigin(m_backWheel[1].getRadius(), m_backWheel[1].getRadius());
     m_backWheel[1].setPosition(m_body->getPosition().x + 45.0f, m_body->getPosition().y + 45.0f);
 }
-
+sf::FloatRect MasterCar::getBounds()
+{
+    return m_body->getGlobalBounds();
+}
 void MasterCar::update(float deltaTime, sf::RenderWindow& window) {
     float movement = 0.0f;
     

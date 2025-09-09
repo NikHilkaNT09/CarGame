@@ -65,46 +65,32 @@ void MasterControl::updateGameStatus(sf::RenderWindow &window, float deltaTime)
 {
         m_masterCar->update(deltaTime, window);
         m_road->update(deltaTime, sf::Vector2f(window.getSize().x, window.getSize().y));
-        for(auto a:m_road->getObsPostion()){
+        for(auto a:m_road->getObstacles()){
 
-            if(500 - a.y <=50){
-            // if(m_masterCar->getPosition().x > a.x && m_masterCar->getPosition().x - a.x < 8){
-
-            // std::cout << "$$$ "<< a.x << " % " << m_masterCar->getPosition().x << std::endl;
-            //     m_isGameOver = true;
-            // }
-            // else if(std::abs(a.x- m_masterCar->getPosition().x) <= 12  /*&& std::abs(a.y- m_masterCar->getPosition().y) <=70*/){
-            //     // std::cout << "  " << a.x << " = " << m_masterCar->getPosition().x << " : "<< a.x- m_masterCar->getPosition().x << "  //  "<< a.y << " = "<< m_masterCar->getPosition().y << " : " << a.y- m_masterCar->getPosition().y << std::endl;
-            
-            // std::cout << "###"<< a.x << " % " << m_masterCar->getPosition().x << std::endl;
-            //     m_isGameOver = true;
-            // }
-
-            auto leftEdge = m_masterCar->getPosition().x - 60;
-            auto rightEdge = m_masterCar->getPosition().x + 60;
-            auto leftEdgeObs = a.x - 40;
-            auto rightEdgeObs = a.x + 40;
-            
-            std::cout << "@@ "<< leftEdge << " @@ " << rightEdge << " @@ "<< leftEdgeObs << " @@ " << rightEdgeObs << std::endl;
-
-            if(leftEdge < rightEdgeObs && leftEdgeObs < leftEdge){
-                std::cout << "#####" << std::endl;
+            if(m_masterCar->getBounds().intersects(a.getBounds())){
                 m_isGameOver = true;
-                break;
             }
-            if(rightEdge > leftEdgeObs && rightEdge < rightEdgeObs){
-                std::cout << "$$$$$" << std::endl;
-                m_isGameOver = true;
-                break;
-            }
-//             if(!(leftEdge > leftEdgeObs && leftEdge > rightEdgeObs) || !(rightEdge < leftEdgeObs && rightEdge < rightEdgeObs) ){
-// m_isGameOver = true;
-//             }
+
+            // if(a.y  >= 400){
+
+            //     auto leftEdge = m_masterCar->getPosition().x - 60;
+            //     auto rightEdge = m_masterCar->getPosition().x + 60;
+            //     auto leftEdgeObs = a.x - 40;
+            //     auto rightEdgeObs = a.x + 40;
                 
-//                 else if(){
-// m_isGameOver = true;
-//                 }
-            }
+            //     std::cout << "@@ "<< leftEdge << " @@ " << rightEdge << " @@ "<< leftEdgeObs << " @@ " << rightEdgeObs << " ## " << a.y <<std::endl;
+
+            //     if(leftEdge < rightEdgeObs && leftEdgeObs < leftEdge){
+            //         std::cout << "#####" << std::endl;
+            //         m_isGameOver = true;
+            //         break;
+            //     }
+            //     if(rightEdge > leftEdgeObs && rightEdge < rightEdgeObs){
+            //         std::cout << "$$$$$" << std::endl;
+            //         m_isGameOver = true;
+            //         break;
+            //     }
+            // }
             
 
 

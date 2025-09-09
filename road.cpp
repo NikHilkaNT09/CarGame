@@ -65,12 +65,7 @@ void Road::draw(sf::RenderWindow& window) {
     }
 }
 
-std::vector<sf::Vector2f> Road::getObsPostion()
+std::vector<Obstacle> Road::getObstacles()
 {
-    std::vector<sf::Vector2f> data;
-
-    for (auto& obstacle : m_obstacles) {
-        data.push_back(obstacle.getPostion());
-    }
-    return data;
+    return m_obstacles;
 }

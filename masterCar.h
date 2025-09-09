@@ -1,12 +1,13 @@
 #include "iostream"
 #include <SFML/Graphics.hpp>
+#include <SFML/Graphics/Rect.hpp>
 #include <string>
 #include <vector>
 
 class MasterCar{
 public:
     explicit MasterCar(const sf::Vector2f& windowSize);
-
+    sf::FloatRect getBounds();
 private:
     sf::RectangleShape *m_body = nullptr;
     sf::CircleShape m_frontWheel[2];

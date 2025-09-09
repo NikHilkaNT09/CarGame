@@ -14,7 +14,7 @@ public:
     explicit Road(const sf::Vector2f& windowSize);
     void update(float deltaTime, const sf::Vector2f& windowSize); 
     void draw(sf::RenderWindow& window);
-    std::vector<sf::Vector2f> getObsPostion();
+    std::vector<Obstacle> getObstacles();
 
     //properties:
     //length
