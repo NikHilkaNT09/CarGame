@@ -70,31 +70,6 @@ void MasterControl::updateGameStatus(sf::RenderWindow &window, float deltaTime)
             if(m_masterCar->getBounds().intersects(a.getBounds())){
                 m_isGameOver = true;
             }
-
-            // if(a.y  >= 400){
-
-            //     auto leftEdge = m_masterCar->getPosition().x - 60;
-            //     auto rightEdge = m_masterCar->getPosition().x + 60;
-            //     auto leftEdgeObs = a.x - 40;
-            //     auto rightEdgeObs = a.x + 40;
-                
-            //     std::cout << "@@ "<< leftEdge << " @@ " << rightEdge << " @@ "<< leftEdgeObs << " @@ " << rightEdgeObs << " ## " << a.y <<std::endl;
-
-            //     if(leftEdge < rightEdgeObs && leftEdgeObs < leftEdge){
-            //         std::cout << "#####" << std::endl;
-            //         m_isGameOver = true;
-            //         break;
-            //     }
-            //     if(rightEdge > leftEdgeObs && rightEdge < rightEdgeObs){
-            //         std::cout << "$$$$$" << std::endl;
-            //         m_isGameOver = true;
-            //         break;
-            //     }
-            // }
-            
-
-
-
         }
 }
 
