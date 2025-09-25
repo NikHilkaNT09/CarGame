@@ -17,6 +17,7 @@ private:
     bool m_isRightBlocked = false;
 
     std::string m_sTag = "MCar: ";
+    void setCarImage();
 
     public:
     void update(float deltaTime, sf::RenderWindow& window);

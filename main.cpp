@@ -51,6 +51,7 @@ int main(){
             if (event.type == sf::Event::Closed)
                 window.close();
         }
+        cont->startAndExitGame(window);
 
         cont->updateGameStatus(window, deltaTime);
         // --- Update ---
@@ -81,6 +82,9 @@ int main(){
             // myRoad.draw(window);
             // myCar.draw(window);
             window.display();
+        }
+        else{
+            // cont->showDialog(window);
         }
 
     }
