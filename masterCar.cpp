@@ -61,7 +61,7 @@ void MasterCar::setCarImage(){
     texture->setSmooth(true);
     texture->setRepeated(true);
     sf::IntRect(m_body->getGlobalBounds());
-    if(!texture->loadFromFile("/home/nikhil/devel/vsCode/BuildGame/img/img_car.png")){
+    if(!texture->loadFromFile("img/img_car.png")){
         std::cout << m_sTag << "failed To Load Image";
     }
 
