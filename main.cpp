@@ -1,3 +1,4 @@
+#include <SFML/Window/Event.hpp>
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/CircleShape.hpp>
@@ -7,6 +8,8 @@
 #include <SFML/Window.hpp>
 #include <GL/glu.h>  
 #include <iterator>
+#include <ostream>
+#include <sys/types.h>
 // #include "masterCar.h"
 // #include "masterCar.cpp"
 // #include "road.cpp"
@@ -14,8 +17,8 @@
 using namespace std;
 using namespace sf;
 
-bool m_isGameOver = false;
-
+// bool g_isGameOver = false;
+uint g_score = 0;
 bool checkGameOver(){
 
     // if()
@@ -37,6 +40,15 @@ int main(){
 
     // --- Game Clock for Time-Based Movement ---
     sf::Clock clock;
+        int event1;
+gameInitialisation:
+    if(g_score){
+        g_score =0;
+        std::cout << " Starting the Game" << std::endl;
+        cont->startAndExitGame(window);
+
+        event1 = 1;
+    }
 
     // --- Main Game Loop ---
     while (window.isOpen())
@@ -44,47 +56,35 @@ int main(){
         // Get the time elapsed since the last frame
         float deltaTime = clock.restart().asSeconds();
 
+
         // --- Event Handling ---
         sf::Event event;
         while (window.pollEvent(event))
         {
             if (event.type == sf::Event::Closed)
                 window.close();
+
+            if(event.type ==sf::Event::MouseButtonPressed){
+                cont->m_isGameOver = false;
+                event1 = 0;    
+            }
+                
         }
-        cont->startAndExitGame(window);
+        
+        if(event1==0)cont->updateGameStatus(window, deltaTime);
+        
 
-        cont->updateGameStatus(window, deltaTime);
-        // --- Update ---
-        // myCar.update(deltaTime, window);
-        // myRoad.update(deltaTime, sf::Vector2f(window.getSize().x, window.getSize().y));
-        // for(auto a:myRoad.getObsPostion()){
-        //     std::cout << "$$ "<< a.x << " % " << myCar.getPosition().x << std::endl;
-
-        //     if(500 - a.y <=50){
-        //     if(myCar.getPosition().x > a.x && myCar.getPosition().x - a.x < 8){
-        //         m_isGameOver = true;
-        //     }
-        //     if(std::abs(a.x- myCar.getPosition().x) <= 90  /*&& std::abs(a.y- myCar.getPosition().y) <=70*/){
-        //         // std::cout << "  " << a.x << " = " << myCar.getPosition().x << " : "<< a.x- myCar.getPosition().x << "  //  "<< a.y << " = "<< myCar.getPosition().y << " : " << a.y- myCar.getPosition().y << std::endl;
-            
-        //         m_isGameOver = true;
-        //     }
-        //     }
-
-
-
-        // }
         // --- Render ---
         if(!cont->m_isGameOver)
         {
+            g_score++;
             window.clear(backgroundColor);
             cont->draw(window);
-            // myRoad.draw(window);
-            // myCar.draw(window);
             window.display();
         }
         else{
-            // cont->showDialog(window);
+            std::cout << " Game Over" << g_score << std::endl; 
+            goto gameInitialisation;
         }
 
     }
