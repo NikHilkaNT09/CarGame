@@ -27,7 +27,7 @@ bool checkGameOver(){
 
 int main(){
     
-    sf::RenderWindow window(sf::VideoMode(800, 600), "Infinite Road 2D Game", sf::Style::Titlebar | sf::Style::Close);
+    sf::RenderWindow window(sf::VideoMode(sf::VideoMode::getDesktopMode().width*0.8, sf::VideoMode::getDesktopMode().height*0.8), "Infinite Road 2D Game", sf::Style::Titlebar | sf::Style::Close);
     window.setFramerateLimit(60);
 
     // --- Colors ---
