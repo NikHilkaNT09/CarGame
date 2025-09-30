@@ -1,14 +1,65 @@
 #include "masterControl.h"
 #include <SFML/Graphics/Drawable.hpp>
+#include <SFML/System/Vector2.hpp>
+#include <cstddef>
 #include <iterator>
+#include <ostream>
 
 MasterControl::MasterControl(sf::RenderWindow &window)
 {
-    m_masterCar = new MasterCar(sf::Vector2f(window.getSize().x, window.getSize().y));
-    m_road = new Road(sf::Vector2f(window.getSize().x, window.getSize().y));
-    std::cout<< "  ^^" << m_masterCar->getPosition().x << "  " << m_masterCar->getPosition().y;
+    clearWindow(window);
 }
 
+MasterControl::~MasterControl()
+{
+
+}
+
+void MasterControl::initialiseGame(sf::RenderWindow &window)
+{
+    m_masterCar = new MasterCar(sf::Vector2f(window.getSize().x, window.getSize().y));
+    m_road = new Road(sf::Vector2f(window.getSize().x, window.getSize().y));
+}
+void MasterControl::deleteRoadAndCar(sf::RenderWindow &window)
+{
+    delete m_masterCar;
+    delete m_road;
+    m_masterCar = nullptr;
+    m_road = nullptr; 
+    window.display();
+}
+void MasterControl::clearWindow(sf::RenderWindow &window, bool toShow)
+{
+    sf::RectangleShape popUpStartExit(sf::Vector2f(window.getSize().x, window.getSize().y));
+    // popUpStartExit.setSize(sf::Vector2f(500.0f, 400.0f));
+    popUpStartExit.setFillColor(sf::Color::Transparent);
+    popUpStartExit.setOrigin(window.getSize().x / 2.0f, window.getSize().y / 2.0f);
+    popUpStartExit.setPosition(0 , 0);
+    sf::Font font;
+    if(!font.loadFromFile("/home/nikhil/devel/vsCode/BuildGame/src/fonts/happy-swirly-font/HappySwirly-KVB7l.ttf")){
+        std::cout << " Font Not Found";
+    }
+    sf::Text startGameTxt;
+    startGameTxt.setFont(font);
+    startGameTxt.setString("Start Game");
+    startGameTxt.setCharacterSize(40);
+    startGameTxt.setFillColor(sf::Color::Magenta);
+    startGameTxt.setPosition(window.getSize().x / 2.0f - 100, window.getSize().y / 2.0f-100);
+
+    sf::Text exitGameTxt;
+    exitGameTxt.setFont(font);
+    exitGameTxt.setString("Exit Game");
+    exitGameTxt.setCharacterSize(40);
+    exitGameTxt.setFillColor(sf::Color::Magenta);
+    exitGameTxt.setPosition(window.getSize().x / 2.0f - 100, window.getSize().y / 2.0f);
+
+    std::cout << "Drawing Pop Up"<< startGameTxt.getString()[0] << std::endl;
+    // window.clear();
+    window.draw(popUpStartExit);
+    window.draw(startGameTxt);
+    window.draw(exitGameTxt);
+    window.display();
+}
 void MasterControl::startAndExitGame(sf::RenderWindow &window)
 {
     sf::Font font;
@@ -54,6 +105,9 @@ void MasterControl::startAndExitGame(sf::RenderWindow &window)
     gameText.setCharacterSize(40);
     gameText.setFillColor(sf::Color::White);
     gameText.setPosition((window.getSize().x - gameText.getGlobalBounds().width) / 2, 200);
+    std::cout << " Drawring the start and Stop Game" << std::endl;
+    window.clear();
+    window.draw(startButton);
 }
 
 void MasterControl::showDialog(sf::RenderWindow &window)
@@ -63,19 +117,21 @@ void MasterControl::showDialog(sf::RenderWindow &window)
 
 void MasterControl::updateGameStatus(sf::RenderWindow &window, float deltaTime)
 {
-        m_masterCar->update(deltaTime, window);
-        m_road->update(deltaTime, sf::Vector2f(window.getSize().x, window.getSize().y));
-        for(auto a:m_road->getObstacles()){
+    if(m_masterCar == nullptr || m_road == nullptr)return;
 
-            if(m_masterCar->getBounds().intersects(a.getBounds())){
-                m_isGameOver = true;
-            }
+    m_masterCar->update(deltaTime, window);
+    m_road->update(deltaTime, sf::Vector2f(window.getSize().x, window.getSize().y));
+    for(auto a:m_road->getObstacles()){
+
+        if(m_masterCar->getBounds().intersects(a.getBounds())){
+            m_isGameOver = true;
         }
+    }
 }
 
 void MasterControl::draw(sf::RenderWindow& window)
 {
-    
+    if(m_masterCar == nullptr || m_road == nullptr)return;
     m_road->draw(window);
     m_masterCar->draw(window);
 }

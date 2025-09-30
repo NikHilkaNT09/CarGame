@@ -90,6 +90,8 @@ void MasterCar::update(float deltaTime, sf::RenderWindow& window) {
         }
     }
 
+    // m_speed *= 0.2;
+
     // Apply movement to all parts of the car
     m_body->move(movement, 0.0f);
     m_frontWheel[0].move(movement, 0.0f);

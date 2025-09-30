@@ -7,6 +7,10 @@ class MasterControl
 {
     public:
     explicit MasterControl(sf::RenderWindow &window);
+    ~MasterControl();
+    void initialiseGame(sf::RenderWindow &window);
+    void deleteRoadAndCar(sf::RenderWindow &window);
+    void clearWindow(sf::RenderWindow &window, bool toShow = false);
     void startAndExitGame(sf::RenderWindow &window);
     void showDialog(sf::RenderWindow &window);
     void updateGameStatus(sf::RenderWindow &window, float deltaTime);
@@ -18,5 +22,5 @@ class MasterControl
 
     sf::Vector2f m_masterWindow;
     public:
-    bool m_isGameOver = false;
+    bool m_isGameOver = true;
 };
