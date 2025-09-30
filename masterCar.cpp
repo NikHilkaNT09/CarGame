@@ -127,8 +127,8 @@ bool MasterCar::limitHorizontalMovement(sf::RenderWindow& window){
         // std::cout << m_sTag << m_body->getPosition().x << std::endl; 
 
 
-        (m_body->getPosition().x <= 248) ? m_isLeftBlocked = true : m_isLeftBlocked = false;
-        (m_body->getPosition().x >= 551.5) ? m_isRightBlocked = true : m_isRightBlocked = false;
+        (m_body->getPosition().x <= window.getSize().x/4.0f + 50.0f) ? m_isLeftBlocked = true : m_isLeftBlocked = false;
+        (m_body->getPosition().x >= window.getSize().x*(3.0f/4) - 50.0f) ? m_isRightBlocked = true : m_isRightBlocked = false;
 
     return false;
 }

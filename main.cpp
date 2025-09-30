@@ -45,7 +45,7 @@ void showMainScreen(sf::RenderWindow &window){
 }
 int main(){
     
-    sf::RenderWindow window(sf::VideoMode(800, 600), "Infinite Road 2D Game", sf::Style::Titlebar | sf::Style::Close);
+    sf::RenderWindow window(sf::VideoMode(sf::VideoMode::getDesktopMode()), "Infinite Road 2D Game", sf::Style::Titlebar | sf::Style::Close);
     window.setFramerateLimit(60);
 
     sf::Color backgroundColor(100, 150, 255); // Sky blue
