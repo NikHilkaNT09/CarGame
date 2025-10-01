@@ -1,8 +1,11 @@
+#include <SFML/Graphics/Color.hpp>
 #include <SFML/Graphics/Font.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Graphics/Text.hpp>
 #include <SFML/Window/Event.hpp>
 #include <SFML/Window/Mouse.hpp>
 #include <SFML/Window/VideoMode.hpp>
+#include <cstdlib>
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/CircleShape.hpp>
@@ -56,13 +59,16 @@ int main(){
 
     // --- Game Clock for Time-Based Movement ---
     sf::Clock clock;
-        int event1;
-        bool retry = true;
+    int event1;
+    bool retry = true;
 
-    ////////////////////////////////////////
-
-
-    ///////////////////////
+    sf::Font font;
+    sf::Text scoreCard;
+    scoreCard.setPosition(10, 10);
+    scoreCard.setFont(font);
+    scoreCard.setCharacterSize(24);
+    scoreCard.setFillColor(sf::Color::Black);
+    scoreCard.setString("Score: " + std::to_string(g_score));  
 gameInitialisation:
     if(g_score){
         g_score =0;
@@ -102,12 +108,11 @@ gameInitialisation:
                     m_masterCont->m_isGameOver = false;
                     g_bStartScreen=false;
                     g_isGameRunning = true;
-                    // retry = true;
                     event1 = 0;    
                 }
 
                 if(res == "stop"){
-                    std::cout << "Stopping";
+                    return -1;
                 }
             }  
             // if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Space) {
@@ -131,6 +136,7 @@ gameInitialisation:
             g_score++;
             window.clear(backgroundColor);
             m_masterCont->draw(window);
+            window.draw(scoreCard);
             window.display();
         }
         else if(g_isGameRunning ){

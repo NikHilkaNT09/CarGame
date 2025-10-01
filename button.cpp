@@ -23,11 +23,19 @@ Button::Button(std::string text){
     sf::Text startTxt;
     // m_masterButton->setPosition()
 }
+
+Button::~Button()
+{
+    delete m_startButton;
+    delete m_stopButton;
+    m_startButton = nullptr;
+    m_startButton = nullptr;
+}
 void Button::setButtonPositions(sf::RenderWindow &window)
 {
     sf::Texture *txtStart = new sf::Texture();
     sf::Texture *txtStop = new sf::Texture();;
-    if(!txtStart->loadFromMemory(start_game_png, start_game_png_len)){}
+    if(!txtStart->loadFromMemory(start_game_png, start_game_png_len))
     {
         std::cout << "Failed to Load Start Game Image";
     }
@@ -42,7 +50,7 @@ void Button::setButtonPositions(sf::RenderWindow &window)
     m_startButton->setTexture(txtStart);
     m_startButton->setPosition(window.getSize().x / 2.0f - 100, window.getSize().y / 2.0f-100);
 
-    m_stopButton->setFillColor(sf::Color::Blue);
+    m_stopButton->setFillColor(sf::Color::Red);
     m_stopButton->setTexture(txtStop);
     m_stopButton->setPosition(window.getSize().x / 2.0f - 100, window.getSize().y / 2.0f);
     // m_startButton->set

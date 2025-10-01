@@ -8,6 +8,7 @@ class Button{
 
 public:
     explicit Button(std::string text);
+    ~Button();
 
     std::pair<bool, std::string> checkClick(sf::Vector2f &mouseClick);
     void setButtonPositions(sf::RenderWindow &window);
