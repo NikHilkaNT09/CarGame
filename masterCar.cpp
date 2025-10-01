@@ -28,31 +28,6 @@ MasterCar::MasterCar(const sf::Vector2f& windowSize){
     m_body->setOrigin(m_body->getSize().x / 2, m_body->getSize().y / 2);
     m_body->setPosition(windowSize.x / 2.0f, windowSize.y - 100.0f);
     m_body->setRotation(90.0f);
-
-    // // Front wheel setup left
-    // m_frontWheel[0].setRadius(10.0f);
-    // m_frontWheel[0].setFillColor(sf::Color(25, 25, 25)); // Dark gray
-    // m_frontWheel[0].setOrigin(m_frontWheel[0].getRadius(), m_frontWheel[0].getRadius());
-    // m_frontWheel[0].setPosition(m_body->getPosition().x - 45.0f, m_body->getPosition().y - 45.0f);
-    // // m_frontWheel.setRotation(0.0f);
-    
-    // m_frontWheel[1].setRadius(10.0f);
-    // m_frontWheel[1].setFillColor(sf::Color(25, 25, 25)); // Dark gray
-    // m_frontWheel[1].setOrigin(m_frontWheel[1].getRadius(), m_frontWheel[1].getRadius());
-    // m_frontWheel[1].setPosition(m_body->getPosition().x + 45.0f, m_body->getPosition().y- 45.0f);
-    // // m_frontWheel.setRotation(90.0f);
-
-    // // // Back wheel setup
-    // m_backWheel[0].setRadius(10.0f);
-    // m_backWheel[0].setFillColor(sf::Color(25, 25, 25)); // Dark gray
-    // m_backWheel[0].setOrigin(m_backWheel[0].getRadius(), m_backWheel[0].getRadius());
-    // m_backWheel[0].setPosition(m_body->getPosition().x - 45.0f, m_body->getPosition().y + 45.0f);
-    // // m_backWheel.setRotation(90.0f);
-
-    // m_backWheel[1].setRadius(10.0f);
-    // m_backWheel[1].setFillColor(sf::Color(25, 25, 25)); // Dark gray
-    // m_backWheel[1].setOrigin(m_backWheel[1].getRadius(), m_backWheel[1].getRadius());
-    // m_backWheel[1].setPosition(m_body->getPosition().x + 45.0f, m_body->getPosition().y + 45.0f);
     setCarImage();
 }
 
@@ -135,6 +110,5 @@ bool MasterCar::limitHorizontalMovement(sf::RenderWindow& window){
 
  sf::Vector2f MasterCar::getPosition() const
  {
-    // std::cout <<  ")))))))" << m_body->getPosition().x << std::endl;
     return m_body->getPosition();
  }

@@ -8,9 +8,9 @@ Road::Road(const sf::Vector2f& windowSize) {
     m_road.setSize(sf::Vector2f(windowSize.x / 2.0f, windowSize.y));
     m_road.setFillColor(sf::Color(40, 40, 40));
     m_road.setPosition(windowSize.x / 4.0f, 0);
-
+    
     // Road stripes setup
-    const int numStripes = 10;
+    const int numStripes = windowSize.y/10;
     float stripeHeight = 50.0f;
     float stripeSpacing = 100.0f;
 

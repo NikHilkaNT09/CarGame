@@ -2,6 +2,7 @@
 #include <iostream>
 #include "masterCar.cpp"
 #include "road.cpp"
+// #include "button.h"
 
 class MasterControl
 {
@@ -15,10 +16,11 @@ class MasterControl
     void showDialog(sf::RenderWindow &window);
     void updateGameStatus(sf::RenderWindow &window, float deltaTime);
     void draw(sf::RenderWindow& window);
-
+    std::string checkClick(sf::Vector2i &mousePos);
     private:
     MasterCar *m_masterCar = nullptr;
     Road *m_road = nullptr;
+    class Button* m_masterButton;
 
     sf::Vector2f m_masterWindow;
     public:

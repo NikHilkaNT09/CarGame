@@ -1,6 +1,7 @@
 #include <SFML/Graphics/Font.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Window/Event.hpp>
+#include <SFML/Window/Mouse.hpp>
 #include <SFML/Window/VideoMode.hpp>
 #include <iostream>
 #include <SFML/Graphics.hpp>
@@ -45,7 +46,7 @@ void showMainScreen(sf::RenderWindow &window){
 }
 int main(){
     
-    sf::RenderWindow window(sf::VideoMode(sf::VideoMode::getDesktopMode()), "Infinite Road 2D Game", sf::Style::Titlebar | sf::Style::Close);
+    sf::RenderWindow window(sf::VideoMode(sf::VideoMode::getDesktopMode()), "Infinite Road 2D Game", sf::Style::Titlebar | sf::Style::Close | sf::Style::Fullscreen);
     window.setFramerateLimit(60);
 
     sf::Color backgroundColor(100, 150, 255); // Sky blue
@@ -91,15 +92,33 @@ gameInitialisation:
             if (event.type == sf::Event::Closed)
                 window.close();
 
-            if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Space) {
-                m_masterCont->initialiseGame(window);
-                m_masterCont->m_isGameOver = false;
-                g_bStartScreen=false;
-                g_isGameRunning = true;
-                // retry = true;
-                event1 = 0;    
+            if(event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)  
+            {
+                sf::Vector2i pos = sf::Mouse::getPosition(window);
+                std::string res = m_masterCont->checkClick(pos);
+                if(res == "start"){
+                    std::cout << "Starting";
+                    m_masterCont->initialiseGame(window);
+                    m_masterCont->m_isGameOver = false;
+                    g_bStartScreen=false;
+                    g_isGameRunning = true;
+                    // retry = true;
+                    event1 = 0;    
+                }
+
+                if(res == "stop"){
+                    std::cout << "Stopping";
+                }
+            }  
+            // if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Space) {
+                // m_masterCont->initialiseGame(window);
+                // m_masterCont->m_isGameOver = false;
+                // g_bStartScreen=false;
+                // g_isGameRunning = true;
+                // // retry = true;
+                // event1 = 0;    
                  // Toggle pop-up visibility
-            }
+            // }
       
         }
         // cont->startAndExitGame(window);
