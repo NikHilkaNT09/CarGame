@@ -13,7 +13,8 @@
 #include <SFML/System/Vector2.hpp>
 #include <iostream>
 #include <iterator>
-#include <ostream>
+#include <iostream>
+#include "img/myImage.h"
 
 namespace {
     const sf::Color CAR_COLOR(255, 0, 0);
@@ -23,11 +24,11 @@ namespace {
 using namespace sf;
 MasterCar::MasterCar(const sf::Vector2f& windowSize){
     m_body = new RectangleShape();
-    m_body->setSize(sf::Vector2f(120.0f, 80.0f));
+    m_body->setSize(sf::Vector2f(80.0f, 120.0f));
     m_body->setFillColor(sf::Color(255, 0, 0)); // Red
     m_body->setOrigin(m_body->getSize().x / 2, m_body->getSize().y / 2);
     m_body->setPosition(windowSize.x / 2.0f, windowSize.y - 100.0f);
-    m_body->setRotation(90.0f);
+    // m_body->setRotation(90.0f);
     setCarImage();
 }
 
@@ -36,9 +37,12 @@ void MasterCar::setCarImage(){
     texture->setSmooth(true);
     texture->setRepeated(true);
     sf::IntRect(m_body->getGlobalBounds());
-    if(!texture->loadFromFile("img/img_car.png")){
-        std::cout << m_sTag << "failed To Load Image";
+    if(!texture->loadFromMemory(car_img_png, car_img_png_len)){
+        std::cout << m_sTag << " Faile to Load Image";
     }
+    // if(!texture->loadFromFile("img/img_car.png")){
+    //     std::cout << m_sTag << "failed To Load Image";
+    // }
 
     m_body->setTexture(texture);
 }

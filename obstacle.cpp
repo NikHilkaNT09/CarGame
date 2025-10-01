@@ -47,7 +47,7 @@ void Obstacle::setCarObstacleImg(sf::RectangleShape *shape){
     texture->setSmooth(true);
     texture->setRepeated(true);
     sf::IntRect(shape->getGlobalBounds());
-    if(!texture->loadFromFile("img/oie_akM8dBGiINLW.png")){
+    if(!texture->loadFromMemory(car_img_png, car_img_png_len)){
         std::cout << "failed To Load Image";
     }
 
