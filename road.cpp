@@ -23,7 +23,7 @@ Road::Road(const sf::Vector2f& windowSize) {
     }
 }
 void Road::update(float deltaTime, const sf::Vector2f& windowSize) {
-    
+    m_roadSpeed > 2000.0f ? m_roadSpeed : m_roadSpeed += 0.5f;
     for (auto& stripe : m_roadStripes)
     {
         stripe.move(0, m_roadSpeed * deltaTime);
@@ -47,10 +47,11 @@ void Road::update(float deltaTime, const sf::Vector2f& windowSize) {
     );
 
     m_obstacleSpawnTimer += deltaTime;
-    if (m_obstacleSpawnTimer > 1.5f) { // Spawns a new obstacle every 1.5 seconds
+    if (m_obstacleSpawnTimer > m_limitTimer) { // Spawns a new obstacle every 1.5 seconds
         m_obstacles.emplace_back(m_road.getPosition().x, m_road.getSize().x);
         m_obstacleSpawnTimer = 0.0f;
     }
+    
     // m_roadSpeed += m_roadSpeed*0.005;
 }
 

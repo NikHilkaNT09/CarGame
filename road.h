@@ -10,6 +10,7 @@ class Road{
     std::vector<Obstacle> m_obstacles;
     float m_roadSpeed = 200.0f;
     float m_obstacleSpawnTimer = 0.0f;
+    float m_limitTimer = 0.5f;
 public:
     explicit Road(const sf::Vector2f& windowSize);
     void update(float deltaTime, const sf::Vector2f& windowSize); 

@@ -52,7 +52,7 @@ sf::FloatRect MasterCar::getBounds()
 }
 void MasterCar::update(float deltaTime, sf::RenderWindow& window) {
     float movement = 0.0f;
-    
+    m_speed > 1000 ? m_speed : m_speed += 0.5;
     limitHorizontalMovement(window);
     
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
@@ -73,18 +73,18 @@ void MasterCar::update(float deltaTime, sf::RenderWindow& window) {
 
     // Apply movement to all parts of the car
     m_body->move(movement, 0.0f);
-    m_frontWheel[0].move(movement, 0.0f);
-    m_backWheel[0].move(movement, 0.0f);
-    m_frontWheel[1].move(movement, 0.0f);
-    m_backWheel[1].move(movement, 0.0f);
+    // m_frontWheel[0].move(movement, 0.0f);
+    // m_backWheel[0].move(movement, 0.0f);
+    // m_frontWheel[1].move(movement, 0.0f);
+    // m_backWheel[1].move(movement, 0.0f);
 }
 
 void MasterCar::draw(sf::RenderWindow& window) {
     window.draw(*m_body);
-    window.draw(m_frontWheel[0]);
-    window.draw(m_frontWheel[1]);
-    window.draw(m_backWheel[0]);
-    window.draw(m_backWheel[1]);
+    // window.draw(m_frontWheel[0]);
+    // window.draw(m_frontWheel[1]);
+    // window.draw(m_backWheel[0]);
+    // window.draw(m_backWheel[1]);
 }
 
 bool MasterCar::limitHorizontalMovement(sf::RenderWindow& window){

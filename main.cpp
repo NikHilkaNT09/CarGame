@@ -29,8 +29,6 @@ bool g_isGameRunning = false;
 // bool g_bStartScreen = false;
 uint g_score = 0;
 bool checkGameOver(){
-
-    // if()
     return true;
 }
 
@@ -50,7 +48,7 @@ void showMainScreen(sf::RenderWindow &window){
 int main(){
     
     sf::RenderWindow window(sf::VideoMode(sf::VideoMode::getDesktopMode()), "Infinite Road 2D Game", sf::Style::Titlebar | sf::Style::Close | sf::Style::Fullscreen);
-    window.setFramerateLimit(60);
+    window.setFramerateLimit(90);
 
     sf::Color backgroundColor(100, 150, 255); // Sky blue
 
@@ -66,9 +64,12 @@ int main(){
     sf::Text scoreCard;
     scoreCard.setPosition(10, 10);
     scoreCard.setFont(font);
-    scoreCard.setCharacterSize(24);
-    scoreCard.setFillColor(sf::Color::Black);
-    scoreCard.setString("Score: " + std::to_string(g_score));  
+
+    if(!font.loadFromFile("/home/nikhil/devel/vsCode/BuildGame/src/fonts/happy-swirly-font/HappySwirly-KVB7l.ttf")){
+        std::cout << " Couldn't Open font file";
+    }
+    scoreCard.setCharacterSize(40);
+    scoreCard.setFillColor(sf::Color::Red); 
 gameInitialisation:
     if(g_score){
         g_score =0;
@@ -117,7 +118,10 @@ gameInitialisation:
             }  
             // if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Space) {
                 // m_masterCont->initialiseGame(window);
-                // m_masterCont->m_isGameOver = false;
+                // m_masterCont->m_isGameOver  0.0f);
+    // m_backWheel[0].move(movement, 0.0f);
+    // m_frontWheel[1].move(movement, 0.0f);
+    // m_backWheel[1].move(movement, 0.0f);= false;
                 // g_bStartScreen=false;
                 // g_isGameRunning = true;
                 // // retry = true;
@@ -136,11 +140,13 @@ gameInitialisation:
             g_score++;
             window.clear(backgroundColor);
             m_masterCont->draw(window);
+            scoreCard.setString("Score: " + std::to_string(g_score)); 
             window.draw(scoreCard);
             window.display();
         }
         else if(g_isGameRunning ){
             g_isGameRunning = false;
+            g_score =0 ;
             m_masterCont->deleteRoadAndCar(window);
             m_masterCont->clearWindow(window);
         }
